@@ -10,6 +10,7 @@ namespace BankApplication
     public interface IInternalBankRepository
     {
         public List<Bank> GetAllBanksInDataBase();
+        Bank GetBankById(Guid id);
         public void SaveBanks(List<Bank> banks);
     }
 }

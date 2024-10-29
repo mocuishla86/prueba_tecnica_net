@@ -12,6 +12,7 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddScoped<LoadBanksUseCase>();
 builder.Services.AddScoped<GetAllBanksUseCase>();
+builder.Services.AddScoped<GetBanksByIdUseCase>();
 builder.Services.AddScoped<IExternalBankRepository, FakeBankAPI>();
 builder.Services.AddSingleton<IInternalBankRepository, InMemoryBanksDataBase>();
 

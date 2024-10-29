@@ -21,5 +21,9 @@ namespace BankInfraestructure
             return _banks;
         }
 
+        public Bank GetBankById(Guid id)
+        {
+            return _banks.Single(bank => bank.Id == id);
+        }
     }
 }
