@@ -1,5 +1,6 @@
 using BankApplication;
 using BankInfraestructure;
+using BankInfraestructure.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,7 +17,9 @@ builder.Services.AddScoped<GetBanksByIdUseCase>();
 builder.Services.AddScoped<IExternalBankRepository, FakeBankAPI>();
 builder.Services.AddSingleton<IInternalBankRepository, InMemoryBanksDataBase>();
 
-
+var connectionString = builder.Configuration.GetConnectionString("MyAppCs");
+//builder.Services.AddDbContext<AppDbContext>(options =>options.UseSqlServer(connectionString))
+builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(connectionString, b => b.MigrationsAssembly("ProductsSqlServer")));
 
 
 var app = builder.Build();
