@@ -6,13 +6,20 @@ namespace BankAPI.Controllers
 {
     [ApiController]
     [Route("/banks")]
-    public class BankController(LoadBanksUseCase loadAllBanksUseCase) : ControllerBase
+    public class BankController(LoadBanksUseCase loadAllBanksUseCase, GetAllBanksUseCase getAllBanksUseCase, IInternalBankRepository internalBankRepository) : ControllerBase
     {
-        
-        [HttpGet(Name = "Get banks from external")]
-        public ActionResult<Bank> GetBanks()
+       
+        [HttpPost("LoadBanksFromAPI", Name = "Load banks from external")]
+        public ActionResult<int> LoadBanksFromAPI()
         {
-            return Ok(loadAllBanksUseCase.GetAllBanks());
+            return Ok(loadAllBanksUseCase.LoadBanks());
+    
+        }
+
+        [HttpGet(Name = "Get banks from internal")]
+        public ActionResult<List<Bank>> GetBanksFromDataBase()
+        {
+            return Ok(getAllBanksUseCase.GetAllBanks());
         }
     }
 }
