@@ -11,7 +11,10 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddScoped<LoadBanksUseCase>();
-builder.Services.AddScoped<IExternalBankRepository, FakeBankRepository>();
+builder.Services.AddScoped<GetAllBanksUseCase>();
+builder.Services.AddScoped<IExternalBankRepository, FakeBankAPI>();
+builder.Services.AddSingleton<IInternalBankRepository, InMemoryBanksDataBase>();
+
 
 
 
