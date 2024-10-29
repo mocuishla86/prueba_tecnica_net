@@ -3,11 +3,11 @@ using BankDomain;
 
 namespace BankInfraestructure
 {
-    public class FakeBankRepository : IExternalBankRepository
+    public class FakeBankAPI : IExternalBankRepository
     {
         private List<Bank> banks;
 
-        public FakeBankRepository()
+        public FakeBankAPI()
         {
             banks = new List<Bank>
             {

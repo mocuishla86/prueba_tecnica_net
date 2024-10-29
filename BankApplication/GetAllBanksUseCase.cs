@@ -2,11 +2,11 @@
 
 namespace BankApplication
 {
-    public class GetAllBanksUseCase(IInternalBankRepository repository)
+    public class GetAllBanksUseCase(IInternalBankRepository internalRepository)
     {
         public List<Bank> GetAllBanks()
         {
-            return repository.GetAllBanks();
+            return internalRepository.GetAllBanksInDataBase();
         }
     }
 }

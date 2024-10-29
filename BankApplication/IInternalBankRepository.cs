@@ -9,6 +9,7 @@ namespace BankApplication
 {
     public interface IInternalBankRepository
     {
-        public List<Bank> GetAllBanks();
+        public List<Bank> GetAllBanksInDataBase();
+        public void SaveBanks(List<Bank> banks);
     }
 }

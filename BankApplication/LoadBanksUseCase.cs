@@ -8,11 +8,22 @@ using System.Threading.Tasks;
 
 namespace BankApplication
 {
-    public class LoadBanksUseCase(IExternalBankRepository repository)
+    public class LoadBanksUseCase(IExternalBankRepository externalBankRepository, IInternalBankRepository internalBankRepository)
     {
-        public List<Bank> GetAllBanks()
+        
+       private readonly IExternalBankRepository externalBankRepository = externalBankRepository;
+       private readonly IInternalBankRepository internalBankRepository = internalBankRepository;
+      
+        public int LoadBanks()
         {
-            return repository.GetAllBanks();
-        } 
+            var externalBanks = externalBankRepository.GetAllBanks();
+
+            internalBankRepository.SaveBanks(externalBanks);
+
+            return externalBanks.Count;
+
+        }
+
+
     }
 }
