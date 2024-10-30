@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.11.35222.181
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BankAPI", "pruebaTecnicaAlicunde\BankAPI.csproj", "{AC3A55F1-0973-49CC-8D3F-DE05211397C0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BankAPI", "BankAPI\BankAPI.csproj", "{AC3A55F1-0973-49CC-8D3F-DE05211397C0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BankDomain", "BankDomain\BankDomain.csproj", "{D5AEC9B5-64AD-4DF4-B7E9-331455B525C7}"
 EndProject
