@@ -45,3 +45,8 @@ dotnet ef migrations update --project BankInfraestructure/BankInfraestructure.cs
 ```shell
 dotnet ef migrations remove --project BankInfraestructure/BankInfraestructure.csproj --startup-project BankAPI/BankAPI.csproj --context BankInfraestructure.Context.AppDbContext
 ```
+
+# Links
+
+- Read configuration from file: https://blog.markvincze.com/overriding-configuration-in-asp-net-core-integration-tests/
+- Wiremock example: https://blog.markvincze.com/overriding-configuration-in-asp-net-core-integration-tests/

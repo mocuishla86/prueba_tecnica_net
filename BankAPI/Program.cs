@@ -3,6 +3,7 @@ using BankApplication;
 using BankInfraestructure;
 using BankInfraestructure.Context;
 using BankInfraestructure.Repositories;
+using Microsoft.Extensions.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,6 +13,8 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.Configure<ExternalAppOptions>(builder.Configuration.GetSection("ExternalApi"));
 
 builder.Services.AddScoped<LoadBanksUseCase>();
 builder.Services.AddScoped<GetAllBanksUseCase>();

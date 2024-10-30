@@ -1,4 +1,5 @@
 ﻿using BankDomain;
+using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -11,16 +12,18 @@ namespace BankApplication
 {
     public class RestExternalBankRepository : IExternalBankRepository
     {
+        private readonly IOptions<ExternalAppOptions> _options;
         private readonly HttpClient _httpClient;
 
-        public RestExternalBankRepository(HttpClient httpClient)
+        public RestExternalBankRepository(IOptions<ExternalAppOptions> options, HttpClient httpClient)
         {
+            _options = options;
             _httpClient = httpClient;
         }
 
         public async Task<List<Bank>> GetAllBanks()
         {
-            var url = "https://api.opendata.esett.com/EXP06/Banks";
+            var url = _options.Value.Url;
 
             try
             {
