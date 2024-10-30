@@ -26,8 +26,15 @@ namespace BankAPI.Controllers
         [HttpGet("{bankId}", Name = "Get bank by id")]
         public ActionResult<Bank> GetBankById(Guid bankId)
         {
+            try
+            {
                 Bank bank = getBanksByIdUseCase.GetBankById(new GetBanksByIdUseCase.Query { BankId = bankId });
                 return Ok(bank);
+            }
+            catch(BankNotFoundException bankNotFoundException) 
+            {
+                return NotFound(bankNotFoundException.Message);
+            }
         }
     }
 }

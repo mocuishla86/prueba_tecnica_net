@@ -24,10 +24,12 @@ builder.Services.AddHttpClient<IExternalBankRepository, RestExternalBankReposito
     client.BaseAddress = new Uri("https://api.opendata.esett.com");
 });
 
-var connectionString = builder.Configuration.GetConnectionString("MyAppCs");
-builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(connectionString));
-//builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(connectionString, b => b.MigrationsAssembly("ProductsSqlServer")));
-
+if (!"Test".Equals(builder.Environment.EnvironmentName))
+{
+    var connectionString = builder.Configuration.GetConnectionString("MyAppCs");
+   // builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(connectionString));
+    builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(connectionString, b => b.MigrationsAssembly("BankInfraestructure")));
+}
 
 var app = builder.Build();
 
@@ -45,3 +47,5 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
+public partial class Program { }

@@ -20,7 +20,8 @@ namespace BankInfraestructure.Repositories
 
         public Bank GetBankById(Guid bankId)
         {
-            BankEntity bankEntity = dbContext.Banks.SingleOrDefault(bankEntity => bankEntity.Id == bankId);
+            BankEntity bankEntity = dbContext.Banks.SingleOrDefault(bankEntity => bankEntity.Id == bankId) 
+                ?? throw new BankNotFoundException(bankId);
 
             return ToDomain(bankEntity);
         }
