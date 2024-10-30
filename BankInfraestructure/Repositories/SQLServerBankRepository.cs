@@ -2,6 +2,7 @@
 using BankDomain;
 using BankInfraestructure.Context;
 using BankInfraestructure.Entities;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Conventions;
 using System;
 using System.Collections.Generic;
@@ -50,6 +51,12 @@ namespace BankInfraestructure.Repositories
                Country = bank.Country
            })
            .ToList();
+        }
+
+        public void Clear()
+        {
+            //https://stackoverflow.com/a/10450893
+            dbContext.Database.ExecuteSqlRaw("delete from Banks");
         }
     }
 }

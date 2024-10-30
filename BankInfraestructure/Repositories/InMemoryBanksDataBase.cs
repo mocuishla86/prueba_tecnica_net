@@ -25,5 +25,10 @@ namespace BankInfraestructure.Repositories
         {
             return _banks.Single(bank => bank.Id == id);
         }
+
+        public void Clear()
+        {
+            _banks.Clear();
+        }
     }
 }

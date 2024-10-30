@@ -16,6 +16,7 @@ namespace BankApplication
       
         public async Task<int> LoadBanks()
         {
+            internalBankRepository.Clear();
             var externalBanks = await externalBankRepository.GetAllBanks();
 
             internalBankRepository.SaveBanks(externalBanks);

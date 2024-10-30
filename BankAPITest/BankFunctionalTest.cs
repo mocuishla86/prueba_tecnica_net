@@ -54,5 +54,15 @@ namespace BankAPITest
 
             banks.Should().HaveCount(2);
         }
+
+        [Fact]
+        public async Task WhenReloadingBanksFromExternalApiThenPreviousOnesAreRemoved()
+        {
+            await client.PostAsync("/banks/LoadBanksFromAPI", null);
+            await client.PostAsync("/banks/LoadBanksFromAPI", null);
+            var banks = await client.GetFromJsonAsync<List<Bank>>("/banks");
+
+            banks.Should().HaveCount(2);
+        }
     }
 }
