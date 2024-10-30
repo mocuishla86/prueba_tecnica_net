@@ -6,7 +6,7 @@ namespace BankAPI.Controllers
 {
     [ApiController]
     [Route("/banks")]
-    public class BankController(LoadBanksUseCase loadAllBanksUseCase, GetAllBanksUseCase getAllBanksUseCase, GetBanksByIdUseCase getBanksByIdUseCase, IInternalBankRepository internalBankRepository) : ControllerBase
+    public class BankController(LoadBanksUseCase loadAllBanksUseCase, GetAllBanksUseCase getAllBanksUseCase, GetBanksByIdUseCase getBanksByIdUseCase) : ControllerBase
     {
        
         [HttpPost("LoadBanksFromAPI", Name = "Load banks from external")]

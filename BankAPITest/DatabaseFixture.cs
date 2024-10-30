@@ -1,4 +1,5 @@
-﻿using BankInfraestructure.Context;
+﻿using BankApplication;
+using BankInfraestructure.Context;
 using DotNet.Testcontainers.Builders;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
@@ -10,6 +11,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WireMock.RequestBuilders;
+using WireMock.ResponseBuilders;
+using WireMock.Server;
 
 namespace BankAPITest
 {
@@ -24,10 +28,14 @@ namespace BankAPITest
 
         public WebApplicationFactory<Program> Factory { private set; get; }
 
+        public WireMockServer WireMock { private set; get; }
+
         public DatabaseFixture()
         {
+            WireMock = WireMockServer.Start();
+            String fakeExternalApiUrl = WireMock.Url + "/banks";
             _container = CreateContainer();
-            Factory = CreateAppWithReplacedConnectionString(_container.Hostname, _container.GetMappedPublicPort(MsSqlPort));
+            Factory = CreateAppWithReplacedConnectionString(_container.Hostname, _container.GetMappedPublicPort(MsSqlPort), fakeExternalApiUrl);
             RunMigrations();
         }
 
@@ -39,7 +47,7 @@ namespace BankAPITest
             return scope;
         }
 
-        private WebApplicationFactory<Program> CreateAppWithReplacedConnectionString(string host, ushort port)
+        private WebApplicationFactory<Program> CreateAppWithReplacedConnectionString(string host, ushort port, string fakeExternalApiUrl)
         {
             var connectionString = $"Server={host},{port};Database={Database};User Id={Username};Password={Password};TrustServerCertificate=True";
             return new WebApplicationFactory<Program>()
@@ -49,6 +57,10 @@ namespace BankAPITest
                     builder.ConfigureServices(services =>
                     {
                         services.AddDbContext<AppDbContext>(options => options.UseSqlServer(connectionString, b => b.MigrationsAssembly("BankInfraestructure")));
+                        services.Configure<ExternalAppOptions>(opts =>
+                        {
+                            opts.Url = fakeExternalApiUrl;
+                        });
                     });
                 });
         }

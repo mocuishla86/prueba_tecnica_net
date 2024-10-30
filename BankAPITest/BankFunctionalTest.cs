@@ -1,10 +1,9 @@
-using BankAPI.Controllers;
-using BankApplication;
+
 using BankDomain;
 using FluentAssertions;
-using Microsoft.AspNetCore.Mvc;
-using Moq;
 using System.Net.Http.Json;
+using WireMock.RequestBuilders;
+using WireMock.ResponseBuilders;
 
 namespace BankAPITest
 {
@@ -15,6 +14,28 @@ namespace BankAPITest
         public BankFunctionalTest(DatabaseFixture databaseFixture)
         {
             client = databaseFixture.Factory.CreateClient();
+            databaseFixture.WireMock
+                 .Given(
+                    Request.Create().WithPath("/banks").UsingGet())
+                  .RespondWith(
+                    Response.Create()
+                      .WithStatusCode(200)
+                      .WithHeader("Content-Type", "application/json")
+                      .WithBody(@"
+                                        [
+                                            {
+                                            name: ""Sparebank 1 SMN"",
+                                            bic: ""SPTRNO22"",
+                                            country: ""NO""
+                                            },
+                                            {
+                                            name: ""Handelsbanken Suomi"",
+                                            bic: ""HANDFIHH"",
+                                            country: ""FI""
+                                            }
+                                        ]   
+                                    ")
+                  );
         }
 
         [Fact]
@@ -23,6 +44,15 @@ namespace BankAPITest
             var banks = await client.GetFromJsonAsync<List<Bank>>("/banks");
 
             banks.Should().BeEmpty();
+        }
+
+        [Fact]
+        public async Task BanksAreLoadedFromExternalApi()
+        {
+            await client.PostAsync("/banks/LoadBanksFromAPI", null);
+            var banks = await client.GetFromJsonAsync<List<Bank>>("/banks");
+
+            banks.Should().HaveCount(2);
         }
     }
 }
