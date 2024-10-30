@@ -64,5 +64,24 @@ namespace BankAPITest
 
             banks.Should().HaveCount(2);
         }
+
+        [Fact]
+        public async Task ABankCanGeRetrievedById()
+        {
+            await client.PostAsync("/banks/LoadBanksFromAPI", null);
+            var firstBank = (await client.GetFromJsonAsync<List<Bank>>("/banks"))[0];
+
+            var firstBankRetrievedById = await client.GetFromJsonAsync<Bank>("/banks/" + firstBank.Id);
+
+            firstBankRetrievedById.Should().BeEquivalentTo(firstBank);
+        }
+
+        [Fact]
+        public async Task GettingByUnexistingIdReturnsNotFound()
+        {
+            var response = await client.GetAsync("/banks/" + Guid.NewGuid());
+
+            response.StatusCode.Should().Be(System.Net.HttpStatusCode.NotFound);
+        }
     }
 }
