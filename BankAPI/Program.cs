@@ -17,7 +17,7 @@ builder.Services.AddScoped<LoadBanksUseCase>();
 builder.Services.AddScoped<GetAllBanksUseCase>();
 builder.Services.AddScoped<GetBanksByIdUseCase>();
 builder.Services.AddScoped<IExternalBankRepository, FakeBankAPI>();
-builder.Services.AddSingleton<IInternalBankRepository, InMemoryBanksDataBase>();
+builder.Services.AddScoped<IInternalBankRepository, SQLServerBankRepository>();
 
 var connectionString = builder.Configuration.GetConnectionString("MyAppCs");
 builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(connectionString));
