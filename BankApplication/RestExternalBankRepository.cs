@@ -18,7 +18,7 @@ namespace BankApplication
             _httpClient = httpClient;
         }
 
-        private async Task<List<Bank>> GetAllBanksAsync()
+        public async Task<List<Bank>> GetAllBanks()
         {
             var url = "https://api.opendata.esett.com/EXP06/Banks";
 
@@ -38,11 +38,9 @@ namespace BankApplication
             {
                 Console.WriteLine($"Error al obtener los bancos desde la API: {ex.Message}");
                 return new List<Bank>();
+                ///DEVOLVER UN 500, VER TEMA DE EXCEPCIONES
             }
         }
-        public List<Bank> GetAllBanks()
-        {
-            return GetAllBanksAsync().GetAwaiter().GetResult();
-        }
+        
     }
 }

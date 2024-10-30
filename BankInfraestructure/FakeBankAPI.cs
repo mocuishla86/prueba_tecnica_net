@@ -28,9 +28,9 @@ namespace BankInfraestructure
 
             };
         }
-        public List<Bank> GetAllBanks()
+        public async Task<List<Bank>> GetAllBanks()
         {
-            return banks;
+            return await Task.FromResult(banks);
         }
     }
 }

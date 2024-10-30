@@ -9,6 +9,6 @@ namespace BankApplication
 {
     public interface IExternalBankRepository
     {
-        List<Bank> GetAllBanks();
+        Task<List<Bank>> GetAllBanks();
     }
 }

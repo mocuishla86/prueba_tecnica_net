@@ -14,9 +14,9 @@ namespace BankApplication
        private readonly IExternalBankRepository externalBankRepository = externalBankRepository;
        private readonly IInternalBankRepository internalBankRepository = internalBankRepository;
       
-        public int LoadBanks()
+        public async Task<int> LoadBanks()
         {
-            var externalBanks = externalBankRepository.GetAllBanks();
+            var externalBanks = await externalBankRepository.GetAllBanks();
 
             internalBankRepository.SaveBanks(externalBanks);
 

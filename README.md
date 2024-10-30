@@ -6,6 +6,27 @@ Realizar un programa en .Net - C#
 2. Almacenar esta inforamción en la base de datos
 3. realizar un controlador que filter por Primary Key
 4. Construir una api Rest con swagger que permita visualizar los datos almacenados en la base de datos.
+ -------------------------------
+ ### Architecture: Hexagonal:
+* One project for API (starts the application and wires dependencies)
+* One project for domain (Project class)
+* One project for application layer (use cases)
+* One project for persistence (spefic adapter for output port).
+# How to run
+* Docker must be installed.
+### Start Sql Server container
+```shell
+docker-compose up -d
+```
+### From BankAPI root
+```shell
+dotnet run
+```
+
+### Stop Sql container
+```shell
+docker-compose down
+```
 
 # Migrations
 ## How to add migrations

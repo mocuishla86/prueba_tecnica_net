@@ -10,9 +10,9 @@ namespace BankAPI.Controllers
     {
        
         [HttpPost("LoadBanksFromAPI", Name = "Load banks from external")]
-        public IActionResult LoadBanksFromAPI()
+        public async Task<IActionResult> LoadBanksFromAPI()
         {
-            var count = loadAllBanksUseCase.LoadBanks();
+            var count = await loadAllBanksUseCase.LoadBanks();
             return Ok(new { Message = $"{count} banks loaded successfully."});
     
         }
