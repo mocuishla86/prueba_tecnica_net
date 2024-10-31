@@ -39,9 +39,7 @@ namespace BankApplication
 
             catch (Exception ex)
             {
-                Console.WriteLine($"Error al obtener los bancos desde la API: {ex.Message}");
-                return new List<Bank>();
-                ///DEVOLVER UN 500, VER TEMA DE EXCEPCIONES
+                throw new HttpRequestException("Failed to fetch banks from external API", ex);
             }
         }
         
